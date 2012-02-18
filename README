@@ -18,10 +18,7 @@ The rest is documentation.
 Installation
 ------------
 
-cp colormake.pl colormake /usr/bin/
-ln -f /usr/bin/colormake /usr/bin/colormake-short
-ln -f /usr/bin/colormake /usr/bin/clmake
-ln -f /usr/bin/colormake /usr/bin/clmake-short
+cp colormake.pl colormake colormake-short clmake clmake-short /usr/bin/
 
 
 Usage

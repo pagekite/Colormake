@@ -16,11 +16,12 @@ normally reads \fB#!/usr/bin/make\fR to \fB#!/usr/bin/colormake\fR.
 Alternately, you may type \fBcolormake\fR whenever you would normally type
 \fBmake\fR when compiling programs.
 .PP
-/usr/bin/colormake was formerly named /usr/bin/cmake but had to be renamed
-because of a name clash.
+Colormake is also available using the alternate names which enable piping
+through less (\fBclmake\fR), truncated output so lines do not wrap
+(\fBcolormake-short\fR), or both (\fBclmake-short\fR).
 .SH FILES
-The configuration files are Perl scripts included by \fBcolormake\fR.
-The defaults values are (from \fBcolormake\fR itself):
+The configuration files are Perl scripts included by \fBcolormake.pl\fR.
+The defaults values are (from \fBcolormake.pl\fR itself):
 .nf
 # Some useful color codes, see end of file for more.
 #
@@ -69,6 +70,9 @@ System-wide configuration file for colormake.
 .TP
 .I $HOME/.colormakerc
 Personal configuration file for colormake.
+.SH HISTORY
+/usr/bin/colormake was formerly named /usr/bin/cmake but had to be renamed
+because of a name clash.
 .SH AUTHORS
 Bjarni R. Einarsson is the author of colormake.
 .PP
