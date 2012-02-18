@@ -4,4 +4,6 @@
 # Jumps to the first gcc error that occurs during the build process.
 #
 
-make $* 2>&1 | colormake.pl `stty size` | less -r -pError
+SIZE=$(stty size)
+make "$@" 2>&1 | colormake.pl $SIZE | less -r -pError
+exit ${PIPESTATUS[0]}
