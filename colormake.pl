@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 #
-# colormake.pl 0.3
+# colormake.pl 0.4
 #
-# Copyright: (C) 1999, Bjarni R. Einarsson <bre@netverjar.is>
-#                      http://bre.klaki.net/
+# Copyright: (C) 1999, 2012, Bjarni R. Einarsson <bre@klaki.net>
+#                            http://bre.klaki.net/
 # 
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
