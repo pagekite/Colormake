@@ -30,12 +30,13 @@ $col_blue =         "\033[34m";
 $col_magenta =      "\033[35m";
 $col_cyan =         "\033[36m";
 $col_ltgray =       "\033[37m";
+$col_drkgray =      "\033[1;30m";
 
-$col_norm =	        "\033[00m";
+$col_norm =         "\033[00m";
 $col_background =   "\033[07m";
 $col_brighten =     "\033[01m";
 $col_underline =    "\033[04m";
-$col_blink = 	    "\033[05m";
+$col_blink =        "\033[05m";
 
 # Customize colors here...
 #
@@ -46,6 +47,7 @@ $col_filename =     $col_yellow;
 $col_linenum =      $col_cyan;
 $col_trace =        $col_yellow;
 $col_warning =      $col_green;
+$col_comment =      $col_drkgray;
 $tag_error =        "";
 $col_error =        $tag_error . $col_yellow . $col_brighten;
 $error_highlight =  $col_brighten;
@@ -89,6 +91,10 @@ while (<>)
 	elsif ($thisline =~ s/^(\s*(libtool:\s*)?((compile|link):\s*)?(([[:ascii:]]+-)?g?cc|(g|c)\+\+).*)$/$col_gcc$1$col_norm/)
 	{
 		$in = 'gcc';
+	}
+	elsif ($thisline =~ s/^\#/$col_comment#$1/x)
+	{
+		$in = 'comment';
 	}
 	elsif ($thisline =~ /^(\s*\(|\[|a(r|wk)|c(p|d|h(mod|own))|do(ne)?|e(cho|lse)|f(ind|or)|i(f|nstall)|mv|perl|r(anlib|m(dir)?)|s(e(d|t)|trip)|tar)\s+/)
 	{
