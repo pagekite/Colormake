@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# colormake.pl 0.4
+# colormake.pl 0.9
 #
 # Copyright: (C) 1999, 2012, Bjarni R. Einarsson <bre@klaki.net>
 #                            http://bre.klaki.net/
@@ -22,11 +22,15 @@
 
 # Some useful color codes, see end of file for more.
 #
-$col_ltgray =       "\033[37m";
-$col_purple =       "\033[35m";
+$col_black =        "\033[30m";
+$col_red =          "\033[31m";
 $col_green =        "\033[32m";
+$col_yellow =       "\033[33m";
+$col_blue =         "\033[34m";
+$col_magenta =      "\033[35m";
 $col_cyan =         "\033[36m";
-$col_brown =        "\033[33m";
+$col_ltgray =       "\033[37m";
+
 $col_norm =	        "\033[00m";
 $col_background =   "\033[07m";
 $col_brighten =     "\033[01m";
@@ -36,15 +40,24 @@ $col_blink = 	    "\033[05m";
 # Customize colors here...
 #
 $col_default =      $col_ltgray;
-$col_gcc =          $col_purple . $col_brighten;
+$col_gcc =          $col_magenta . $col_brighten;
 $col_make =         $col_cyan;
-$col_filename =     $col_brown;
+$col_filename =     $col_yellow;
 $col_linenum =      $col_cyan;
-$col_trace =        $col_brown;
+$col_trace =        $col_yellow;
 $col_warning =      $col_green;
-$tag_error =        "Error: ";
-$col_error =        $tag_error . $col_brown . $col_brighten;
+$tag_error =        "";
+$col_error =        $tag_error . $col_yellow . $col_brighten;
 $error_highlight =  $col_brighten;
+
+# read in config files: system first, then user
+for $file ("/usr/share/colormake/colormake.rc", "$ENV{HOME}/.colormakerc")
+{
+	unless (!-f $file or do $file)
+	{
+		warn "couldn't parse $file: $@" if $@;
+	}
+}
 
 # Get size of terminal
 #
@@ -53,10 +66,14 @@ $cols  = shift @ARGV || 0;
 $cols -= 19;
 
 $in = 'unknown';
+$| = 1;
 while (<>)
 {
 	$orgline = $thisline = $_;
 	
+	# Remove multiple spaces
+	$thisline =~ s/  \+/ /g;
+
 	# Truncate lines.
 	# I suppose this is bad, but it's better than what less does!
 	if ($cols >= 0) 
@@ -69,11 +86,11 @@ while (<>)
 	{
 		$in = 'make';
 	}
-	elsif ($thisline =~ s/^((g?cc|(g|c)\+\+).*)$/$col_gcc$1$col_norm/) 
+	elsif ($thisline =~ s/^(\s*(libtool:\s*)?((compile|link):\s*)?(([[:ascii:]]+-)?g?cc|(g|c)\+\+).*)$/$col_gcc$1$col_norm/)
 	{
 		$in = 'gcc';
 	}
-	elsif ($thisline =~ /^(\(|\[|a(r|wk)|c(p|d|h(mod|own))|do(ne)?|e(cho|lse)|f(ind|or)|i(f|nstall)|mv|perl|r(anlib|m(dir)?)|s(e(d|t)|trip)|tar)\s+/)
+	elsif ($thisline =~ /^(\s*\(|\[|a(r|wk)|c(p|d|h(mod|own))|do(ne)?|e(cho|lse)|f(ind|or)|i(f|nstall)|mv|perl|r(anlib|m(dir)?)|s(e(d|t)|trip)|tar)\s+/)
 	{
 		$in = $1;
 	}
