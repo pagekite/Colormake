@@ -1,0 +1,82 @@
+.TH colormake 1 "July 2nd, 2001"
+.SH NAME
+colormake \- color wrapper for make(1)
+.SH SYNOPSIS
+\fBcolormake\fR [ --fit ] ...
+.SH DESCRIPTION
+colormake acts as a wrapper around make(1) to ease reading the output by
+colorizing it.
+.SH OPTIONS
+The --fit option instructs colormake to truncate lines so they do not wrap.
+All other options will be passed unmodified to \fBmake\fR(1).
+.SH USAGE
+To change a makefile to use colormake, you may change the path at the top which
+normally reads \fB#!/usr/bin/make\fR to \fB#!/usr/bin/colormake\fR.
+.PP
+Alternately, you may type \fBcolormake\fR whenever you would normally type
+\fBmake\fR when compiling programs.
+.PP
+/usr/bin/colormake was formerly named /usr/bin/cmake but had to be renamed
+because of a name clash.
+.SH FILES
+The configuration files are Perl scripts included by \fBcolormake\fR.
+The defaults values are (from \fBcolormake\fR itself):
+.nf
+# Some useful color codes, see end of file for more.
+#
+$col_black =        "\\033[30m";
+$col_red =          "\\033[31m";
+$col_green =        "\\033[32m";
+$col_yellow =       "\\033[33m";
+$col_blue =         "\\033[34m";
+$col_magenta =      "\\033[35m";
+$col_cyan =         "\\033[36m";
+$col_ltgray =       "\\033[37m";
+
+$col_norm =         "\\033[00m";
+$col_background =   "\\033[07m";
+$col_brighten =     "\\033[01m";
+$col_underline =    "\\033[04m";
+$col_blink =        "\\033[05m";
+
+# Customize colors here...
+#
+$col_default =      $col_ltgray;
+$col_gcc =          $col_magenta . $col_brighten;
+$col_make =         $col_cyan;
+$col_filename =     $col_yellow;
+$col_linenum =      $col_cyan;
+$col_trace =        $col_yellow;
+$col_warning =      $col_green;
+$tag_error =        "";
+$col_error =        $tag_error . $col_yellow . $col_brighten;
+$error_highlight =  $col_brighten;
+.fi
+.PP
+For use with gnome-terminal I have the following configuration in my 
+.I $HOME/.colormakerc
+file:
+.nf
+$col_default =      $col_black;
+$col_gcc =          $col_magenta;
+$col_filename =     $col_blue;
+$col_linenum =      $col_cyan;
+$col_error =        $tag_error . $col_red . $col_brighten;
+.fi
+.TP
+.I /usr/share/colormake/colormake.rc
+System-wide configuration file for colormake.
+.TP
+.I $HOME/.colormakerc
+Personal configuration file for colormake.
+.SH AUTHORS
+Bjarni R. Einarsson is the author of colormake.
+.PP
+This manual page was written for the Debian GNU/Linux distribution because
+the original program does not have a manual page.
+.PP
+This manual page was written by Joe Wreschnig <piman@sacredchao.net> and
+updated by Ludovic Rousseau <rousseau@debian.org>, for the
+Debian GNU/Linux system (but may be used by others).
+.SH SEE ALSO
+\fBmake\fR\|(1), \fBclmake\fR\|(1)

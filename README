@@ -19,7 +19,7 @@ The rest is documentation.
 Installation
 ------------
 
-cp colormake.pl cmake clmake /usr/local/bin/
+cp colormake.pl colormake clmake /usr/bin/
 
 
 Usage

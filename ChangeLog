@@ -1,7 +1,11 @@
+0.9:
+	Integrated changes from Debian packages.
+	Renamed cmake to colormake.
+	Made lossless output the default for colormake/clmake, added --fit
+
 0.4:
 	Preserve exit code in cmake wrapper.
 	Moved to git, github.
-	 
 
 0.3:
 	Corrected line length problem in Error: lines.
