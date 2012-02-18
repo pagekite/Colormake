@@ -5,3 +5,4 @@
 #
 
 make $* 2>&1 | colormake.pl `stty size`
+exit $PIPESTATUS

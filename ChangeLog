@@ -1,10 +1,15 @@
+0.4:
+	Preserve exit code in cmake wrapper.
+	Moved to git, github.
+	 
+
 0.3:
-	 Corrected line length problem in Error: lines.
-	 Minor tweaks.
+	Corrected line length problem in Error: lines.
+	Minor tweaks.
 
 0.2:
-     Made colormake.pl cut long lines so they fit in one line.
-     Renamed cmake as clmake, created simpler cmake.
+	Made colormake.pl cut long lines so they fit in one line.
+	Renamed cmake as clmake, created simpler cmake.
 
 0.1: First release
 
