@@ -3,23 +3,27 @@
 # Wrapper around make, to colorize it's output and pipe through less.
 # Jumps to the first gcc error that occurs during the build process.
 #
-# Run with --fit as the first argument to shorten each line so it fits
+# Run with --short as the first argument to shorten each line so it fits
 # on the screen.
 #
-
-if [ "$1" = "--fit" -o "$(basename $0 |cut -f2 -d-)" = "short" ]; then
-    # Fix suggested by Mr. Magne
-    SIZE=$(stty size)
-    shift
-else
-    SIZE=""
-fi
 
 if [ "$TERM" = "dumb" ];then
    # As suggested by Alexander Korkov ...
    exec make "$@"
 fi
 
+# Do we want truncated output?
+if [ "$1" = "--short" ]; then
+    SIZE=$(stty size)
+    shift
+else
+    SIZE=""
+fi
+if [ "$(basename $0 |cut -f2 -d-)" = "short" ]; then
+    SIZE=$(stty size)
+fi
+
+# Pipe through less only if we are invoked as clmake.
 if [ "$(basename $0 |cut -f1 -d-)" = "clmake" ]; then
     if [ -z "${CLMAKE_OPTS}" ]; then
         CLMAKE_OPTS='-SR -pError'

@@ -2,7 +2,7 @@
 	Integrated changes from Debian packages.
 	Renamed cmake to colormake.
 	Unified clmake and colormake into one.
-	Made lossless output the default for colormake, added --fit
+	Made lossless output the default for colormake, added --short
 
 0.4:
 	Preserve exit code in cmake wrapper.
