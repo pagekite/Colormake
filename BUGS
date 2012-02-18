@@ -1,0 +1,8 @@
+
+The cmake script might not always pass arguements correctly to make.
+
+I'm not really sure it will catch all errors, but it seems to work.
+
+Less isn't really very good at handling colorful input.
+
+Some people probably won't like my choice of colors.
