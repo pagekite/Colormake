@@ -11,7 +11,6 @@ Files
 
 colormake.pl   A perl filter, which colorizes make's output.
 colormake      A shell script, which combines make and colormake.pl
-clmake         A shell script, which combines make, colormake.pl and less
 
 The rest is documentation.
 
@@ -19,7 +18,10 @@ The rest is documentation.
 Installation
 ------------
 
-cp colormake.pl colormake clmake /usr/bin/
+cp colormake.pl colormake /usr/bin/
+ln -f /usr/bin/colormake /usr/bin/colormake-short
+ln -f /usr/bin/colormake /usr/bin/clmake
+ln -f /usr/bin/colormake /usr/bin/clmake-short
 
 
 Usage

@@ -1,7 +1,8 @@
 0.9:
 	Integrated changes from Debian packages.
 	Renamed cmake to colormake.
-	Made lossless output the default for colormake/clmake, added --fit
+	Unified clmake and colormake into one.
+	Made lossless output the default for colormake, added --fit
 
 0.4:
 	Preserve exit code in cmake wrapper.

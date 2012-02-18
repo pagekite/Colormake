@@ -7,7 +7,7 @@
 # on the screen.
 #
 
-if [ "$1" = "--fit" ]; then
+if [ "$1" = "--fit" -o "$(basename $0 |cut -f2 -d-)" = "short" ]; then
     # Fix suggested by Mr. Magne
     SIZE=$(stty size)
     shift
@@ -20,7 +20,14 @@ if [ "$TERM" = "dumb" ];then
    exec make "$@"
 fi
 
-make "$@" 2>&1 | colormake.pl $SIZE
+if [ "$(basename $0 |cut -f1 -d-)" = "clmake" ]; then
+    if [ -z "${CLMAKE_OPTS}" ]; then
+        CLMAKE_OPTS='-SR -pError'
+    fi
+    make "$@" 2>&1 | colormake.pl $SIZE |less ${CLMAKE_OPTS}
+else
+    make "$@" 2>&1 | colormake.pl $SIZE
+fi
 
 # Thanks to Alexander Korkov and Kolan Sh
 exit ${PIPESTATUS[0]}
