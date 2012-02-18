@@ -27,7 +27,12 @@ ln -f /usr/bin/colormake /usr/bin/clmake-short
 Usage
 -----
 
-Type "cmake" or "clmake" whenever you'd ordinarily type "make".
+Type "colormake" whenever you'd ordinarily type "make".
+
+Type "clmake" for the same effect, but piped through "less".
+
+The "colormake-short" and "clmake-short" versions of the commands will
+massage the output so lines do not wrap, but are otherwise the same.
 
 
 Contributing patches
