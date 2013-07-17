@@ -67,6 +67,9 @@ $lines = shift @ARGV || 0;
 $cols  = shift @ARGV || 0;
 $cols -= 19;
 
+$file = '[^\/?*:;{}\\\]+';
+$code_file = "$file\.(c|cpp|cc|hpp)";
+
 $in = 'unknown';
 $| = 1;
 while (<>)
@@ -88,7 +91,13 @@ while (<>)
 	{
 		$in = 'make';
 	}
-	elsif ($thisline =~ s/^(\s*(libtool:\s*)?((compile|link):\s*)?(([[:ascii:]]+-)?g?(cc|\+\+)|(g|c)\+\+).*)$/$col_gcc$1$col_norm/)
+	elsif ($thisline =~ s/^(
+	\s*(libtool:\s*)?
+	((compile|link):\s*)?
+	(([[:ascii:]]+-)?g?(cc|\+\+)|(g|c)\+\+).*
+	|$code_file
+	)$
+	/$col_gcc$1$col_norm/x)
 	{
 		$in = 'gcc';
 	}
