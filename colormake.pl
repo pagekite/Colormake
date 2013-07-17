@@ -69,12 +69,20 @@ $cols -= 19;
 
 $in = 'unknown';
 $| = 1;
+$skip = 0;
 while (<>)
 {
 	$orgline = $thisline = $_;
 
 	# Remove multiple spaces
 	$thisline =~ s/  \+/ /g;
+
+	# skip lines
+	$skip--;
+	if ($skip < 0)
+	{
+		$skip = 0;
+	}
 
 	# Truncate lines.
 	# I suppose this is bad, but it's better than what less does!
@@ -91,16 +99,23 @@ while (<>)
 	elsif ($thisline =~ s/^(\s*(libtool:\s*)?((compile|link):\s*)?(([[:ascii:]]+-)?g?(cc|\+\+)|(g|c)\+\+).*)$/$col_gcc$1$col_norm/)
 	{
 		$in = 'gcc';
+
+		if ($thisline =~ /\W-MF\W/)
+		{
+			$skip = 2;
+		}
 	}
 	elsif ($thisline =~ s/^\#/$col_comment#$1/x)
 	{
 		$in = 'comment';
 	}
-	elsif ($thisline =~ /^(\s*\(|\[|a(r|wk)|c(p|d|h(mod|own))|do(ne)?|e(cho|lse)|f(ind|or)|i(f|nstall)|mv|perl|r(anlib|m(dir)?)|s(e(d|t)|trip)|tar)\s+/)
+	elsif (!$skip && $thisline =~ /^(\s*\(|\[|a(r|wk)|c(p|d|h(mod|own))|do(ne)?|e(cho|lse)|f(ind|or)|i(f|nstall)|mv|perl|r(anlib|m(dir)?)|s(e(d|t)|trip)|tar)\s+/)
 	{
 		$in = $1;
 	}
-	elsif ($in eq 'gcc')
+	elsif ($in eq 'gcc'
+		&& $thisline !~ /^mv\W/
+		)
 	{
 		# Do interesting things if make is compiling something.
 
