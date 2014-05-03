@@ -96,7 +96,7 @@ while (<>)
 	{
 		$in = 'make';
 	}
-	elsif ($thisline =~ s/^(\s*(libtool:\s*)?((compile|link):\s*)?(([[:ascii:]]+-)?g?(cc|\+\+)|(g|c)\+\+|clang).*)$/$col_gcc$1$col_norm/)
+	elsif ($thisline =~ s/^(\s*(libtool:\s*)?((compile|link):\s*)?(([[:ascii:]]+-)?g?(cc|\+\+)|(g|c)\+\+|clang|CC|CXX).*)$/$col_gcc$1$col_norm/)
 	{
 		$in = 'gcc';
 
