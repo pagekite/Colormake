@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# colormake.pl 0.9.20140503
+# colormake.pl 0.9.20140504
 #
 # Copyright: (C) 1999, 2012-2014, Bjarni R. Einarsson <bre@klaki.net>
 #                                 http://bre.klaki.net/
