@@ -9,8 +9,8 @@ inspired by Micheal T. Babcock's excellent logcolorize program.
 Files
 -----
 
-colormake.pl   A perl filter, which colorizes make's output.
-colormake      A shell script, which combines make and colormake.pl
+    colormake.pl   A perl filter, which colorizes make's output.
+    colormake      A shell script, which combines make and colormake.pl
 
 The rest is documentation.
 
@@ -18,31 +18,32 @@ The rest is documentation.
 Installation
 ------------
 
-cp -fa colormake.pl colormake colormake-short clmake clmake-short /usr/bin/
+    cp -fa colormake.pl colormake colormake-short clmake clmake-short /usr/bin/
 
 
 Usage
 -----
 
-Type "colormake" whenever you'd ordinarily type "make".
+Type `colormake` whenever you'd ordinarily type `make`.
 
-Type "clmake" for the same effect, but piped through "less".
+Type `clmake` for the same effect, but piped through `less`.
 
-The "colormake-short" and "clmake-short" versions of the commands will
+The `colormake-short` and `clmake-short` versions of the commands will
 massage the output so lines do not wrap, but are otherwise the same.
 
 
 Contributing patches
 --------------------
 
-This project now lives on Github: https://github.com/pagekite/Colormake
+This project now lives on Github: <https://github.com/pagekite/Colormake>
+
 Feel free to fork it and send pull requests.
 
 
 Author
 ------
 
-Bjarni R. Einarsson, http://bre.klaki.net/.
+Bjarni R. Einarsson, <http://bre.klaki.net/>.
 
 
 License
