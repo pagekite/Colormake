@@ -143,7 +143,7 @@ while (<>)
 				$thisline =~ s/^(.{$c}).....*(.{15})$/$1 .. $2/;
 			}
 			$thisline =~ s/(\d+:\s+)/$1$col_default/;
-			$thisline =~ s/(error:)/$col_error$col_blink ERROR: $col_norm$col_error/;
+			$thisline =~ s/(error:)/$col_error$col_blink$1$col_norm$col_error/;
 			$thisline = $error_highlight . $thisline . $col_norm;
 		}
 
