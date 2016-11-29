@@ -4,7 +4,7 @@ export VERSION=$(grep '# color' colormake.pl |cut -f3 -d\ )
 mkdir -p tmp
 ln -s $(pwd) tmp/colormake-$VERSION
 (cd tmp && tar chvfz colormake-$VERSION.tar.gz \
-                     --exclude=tmp --exclude=.git --exclude=*.tar.gz \
+                     --exclude=tmp --exclude-vcs --exclude=*.tar.gz \
                      colormake-$VERSION)
 mv tmp/*.tar.gz .
 rm -rf tmp
