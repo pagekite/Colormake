@@ -12,6 +12,9 @@ if [ "$TERM" = "dumb" ];then
    exec make "$@"
 fi
 
+# Set environment variable so that children can detect us
+export COLORMAKE=1
+
 # Do we want truncated output?
 if [ "$1" = "--short" ]; then
     SIZE=$(stty size)
