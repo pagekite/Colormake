@@ -52,6 +52,8 @@ $tag_error =        "";
 $col_error =        $tag_error . $col_yellow . $col_brighten;
 $error_highlight =  $col_brighten;
 
+$SIG{INT} = \END;
+
 # read in config files: system first, then user
 for $file ("/usr/share/colormake/colormake.rc", "$ENV{HOME}/.colormakerc")
 {
@@ -154,7 +156,10 @@ while (<>)
 	print $thisline;
 }
 
-print $col_norm;
+END 
+{
+	print $col_norm;
+}
 
 # UNUSED:
 #
