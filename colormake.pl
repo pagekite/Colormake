@@ -43,13 +43,14 @@ $col_blink =        "\033[05m";
 $col_default =      $col_ltgray;
 $col_gcc =          $col_magenta . $col_brighten;
 $col_make =         $col_cyan;
-$col_filename =     $col_yellow;
-$col_linenum =      $col_cyan;
+$col_filename =     $col_cyan;
+$col_linenum =      $col_blue;
 $col_trace =        $col_yellow;
-$col_warning =      $col_green;
+$col_note =         $col_green . $col_brighten;
+$col_warning =      $col_yellow . $col_brighten;
 $col_comment =      $col_drkgray;
 $tag_error =        "";
-$col_error =        $tag_error . $col_yellow . $col_brighten;
+$col_error =        $tag_error . $col_red . $col_brighten;
 $error_highlight =  $col_brighten;
 
 $SIG{INT} = \END;
@@ -90,7 +91,7 @@ while (<>)
 	# I suppose this is bad, but it's better than what less does!
 	if ($cols >= 0)
 	{
-	    $thisline =~ s/^(.{$cols}).....*(.{15})$/$1 .. $2/;
+		$thisline =~ s/^(.{$cols}).....*(.{15})$/$1 .. $2/;
 	}
 
 	# make[1]: Entering directory `/blah/blah/blah'
@@ -121,23 +122,31 @@ while (<>)
 	{
 		# Do interesting things if make is compiling something.
 
-		if (($thisline !~ /[,:]$/) && ($thisline !~ /warning/))
+		if (($thisline !~ /[,:]$/) && ($thisline =~ /^\ /) && ($thisline !~ /note|warning|error/))
 		{
-			# error?
+			# This normally matches the source code snippet.
+			$thisline = $col_norm . $thisline;
+		}
+		elsif ($thisline =~ /note:/)
+		{
+			$thisline =~ s|(note:\s+)(.*)$|$col_note$1$2$col_norm|;
+		}
+		elsif ($thisline =~ /warning:/)
+		{
+			$thisline =~ s|(warning:\s+)(.*)$|$col_warning$1$2$col_norm|;
+		}
+		elsif ($thisline =~ /error:/)
+		{
 			if ($cols >= 0)
 			{
 				# Retruncate line, because we are about to insert "Error:".
 				my $c = $cols - length($tag_error);
 				$thisline = $orgline;
-			    $thisline =~ s/^(.{$c}).....*(.{15})$/$1 .. $2/;
+				$thisline =~ s/^(.{$c}).....*(.{15})$/$1 .. $2/;
 			}
-			$thisline =~ s/(\d+:\s+)/$1$col_default$col_error/;
+			$thisline =~ s/(\d+:\s+)/$1$col_default/;
+			$thisline =~ s/(error:)/$col_error$col_blink$1$col_norm$col_error/;
 			$thisline = $error_highlight . $thisline . $col_norm;
-		}
-		else
-		{
-			# warning
-			$thisline =~ s|(warning:\s+)(.*)$|$1$col_warning$2|;
 		}
 
 		# In file included from main.cpp:38:
