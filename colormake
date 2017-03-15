@@ -7,9 +7,11 @@
 # on the screen.
 #
 
+MAKE=/usr/bin/make
+
 if [ "$TERM" = "dumb" ];then
    # As suggested by Alexander Korkov ...
-   exec make "$@"
+   exec $MAKE "$@"
 fi
 
 # Set environment variable so that children can detect us
@@ -31,9 +33,9 @@ if [ "$(basename $0 |cut -f1 -d-)" = "clmake" ]; then
     if [ -z "${CLMAKE_OPTS}" ]; then
         CLMAKE_OPTS='-SR -pError'
     fi
-    make "$@" 2>&1 | colormake.pl $SIZE |less ${CLMAKE_OPTS}
+    $MAKE "$@" 2>&1 | colormake.pl $SIZE |less ${CLMAKE_OPTS}
 else
-    make "$@" 2>&1 | colormake.pl $SIZE
+    $MAKE "$@" 2>&1 | colormake.pl $SIZE
 fi
 
 # Thanks to Alexander Korkov and Kolan Sh
